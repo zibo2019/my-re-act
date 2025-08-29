@@ -31,9 +31,17 @@ uv sync
 ```
 
 3. 配置环境变量：
-创建 `.env` 文件并添加你的 API 密钥：
+复制示例配置文件并编辑：
+```bash
+cp .env.example .env
+```
+
+然后编辑 `.env` 文件，添加你的 API 密钥：
 ```
 OPENAI_API_KEY=your_api_key_here
+
+# 可选：如果使用其他 API 服务
+# OPENAI_BASE_URL=https://api.vveai.com/v1
 ```
 
 ## 🛠️ 使用方法
@@ -133,11 +141,25 @@ agent = ReActAgent(tools=tools, model="gemini-2.5-pro", project_directory=projec
 
 ### API 配置
 
-项目使用 vveai.com 作为 API 端点，你可以在 `agent.py` 中修改：
+项目默认使用 OpenAI 官方 API，你可以通过环境变量配置：
+
+**方式一：环境变量配置（推荐）**
+```bash
+# .env 文件
+OPENAI_API_KEY=your_api_key_here
+OPENAI_BASE_URL=https://api.openai.com/v1  # 默认值，可省略
+
+# 使用其他兼容服务
+OPENAI_BASE_URL=https://api.vveai.com/v1
+```
+
+**方式二：代码中直接指定**
 ```python
-self.client = OpenAI(
-    base_url="https://api.vveai.com/v1",
-    api_key=ReActAgent.get_api_key(),
+agent = ReActAgent(
+    tools=tools,
+    model="gemini-2.5-pro",
+    project_directory=project_dir,
+    base_url="https://api.vveai.com/v1"  # 可选参数
 )
 ```
 

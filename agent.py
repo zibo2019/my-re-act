@@ -3,7 +3,7 @@ import inspect
 import os
 import re
 from string import Template
-from typing import List, Callable, Tuple
+from typing import List, Callable, Optional, Tuple
 
 import click
 from dotenv import load_dotenv
@@ -14,12 +14,17 @@ from prompt_template import react_system_prompt_template
 
 
 class ReActAgent:
-    def __init__(self, tools: List[Callable], model: str, project_directory: str):
+    def __init__(self, tools: List[Callable], model: str, project_directory: str, base_url: Optional[str] = None):
         self.tools = { func.__name__: func for func in tools }
         self.model = model
         self.project_directory = project_directory
+
+        # 如果没有指定 base_url，则从环境变量获取，默认使用 OpenAI 官方
+        if base_url is None:
+            base_url = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")
+
         self.client = OpenAI(
-            base_url="https://api.vveai.com/v1",
+            base_url=base_url,
             api_key=ReActAgent.get_api_key(),
         )
 
