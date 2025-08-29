@@ -2,6 +2,8 @@
 
 一个基于 ReAct（Reasoning and Acting）模式的智能编程助手，能够通过思考-行动-观察的循环来解决编程任务。
 
+> 基于此项目：https://github.com/MarkTechStation/VideoCode
+
 ## 🚀 特性
 
 - **ReAct 模式**：采用思考-行动-观察的循环模式，让AI能够逐步分析和解决问题
